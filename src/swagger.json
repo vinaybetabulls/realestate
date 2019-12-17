@@ -1,0 +1,14 @@
+{
+    "swagger": "2.0",
+    "info": {
+
+    },
+    "paths": {
+        "/test": {
+            "get": {
+                "operationId": "testController",
+                "x-swagger-router-controller":"sample"
+            }
+        }
+    }
+}
