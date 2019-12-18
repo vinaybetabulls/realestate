@@ -18,9 +18,8 @@ const swaggerRouterOption = {
 }
 let mongo = new MongoDbConnection();
 const app: any = express();
-let mongodbURL = process.env.MONGO_URI  || 'monodb://localhost:27017/';
-let dbName = process.env.DB_NAME || 'test';
-mongo.init(mongodbURL, dbName);
+console.log(process.env.MONGO_DB_HOST)
+mongo.init(require('./src/configs/database').default);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({limit:'1000mb',extended:true}))
 swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
