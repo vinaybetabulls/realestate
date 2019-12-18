@@ -1,20 +1,58 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version":"0.1",
-        "title":"test"
+  "swagger": "2.0",
+  "info": {
+    "version": "0.1",
+    "title": "test"
+  },
+  "paths": {
+    "/test": {
+      "get": {
+        "operationId": "testController",
+        "responses": {
+          "200": {
+            "description": "test"
+          }
+        },
+        "x-swagger-router-controller": "property"
+      }
     },
-    "paths": {
-        "/test": {
-            "get": {
-                "operationId": "testController",
-                "responses": {
-                    "200": {
-                        "description": "test"
-                    }
-                },
-                "x-swagger-router-controller":"products"
+    "/addProperty": {
+      "post": {
+        "operationId": "addProperty",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addProperty"
             }
-        }
+          }
+        ],
+        "responses": {
+          "200": {
+              "description": "property added successfully"
+          }
+        },
+
+        "x-swagger-router-controller": "property"
+      }
     }
+  },
+  "definitions":{
+      "addProperty":{
+          "type": "object",
+          "properties": {
+             "propertyName":{
+                 "type":"string"
+             },
+             "propertyLocation":{
+                 "type":"string"
+             },
+             "propertyDescription":{
+                 "type":"string"
+             }
+          }
+      }
+  }
 }
