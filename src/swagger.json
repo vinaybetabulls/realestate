@@ -1,13 +1,19 @@
 {
     "swagger": "2.0",
     "info": {
-
+        "version":"0.1",
+        "title":"test"
     },
     "paths": {
         "/test": {
             "get": {
                 "operationId": "testController",
-                "x-swagger-router-controller":"sample"
+                "responses": {
+                    "200": {
+                        "description": "test"
+                    }
+                },
+                "x-swagger-router-controller":"products"
             }
         }
     }
