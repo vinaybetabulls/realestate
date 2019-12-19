@@ -31,28 +31,39 @@
         ],
         "responses": {
           "200": {
-              "description": "property added successfully"
+            "description": "property added successfully"
           }
         },
 
         "x-swagger-router-controller": "property"
       }
+    },
+    "/getProprty": {
+      "get": {
+        "operationId": "getProperty",
+        "x-swagger-router-controller": "property",
+        "responses": {
+          "200": {
+            "description": "property added successfully"
+          }
+        }
+      }
     }
   },
-  "definitions":{
-      "addProperty":{
-          "type": "object",
-          "properties": {
-             "propertyName":{
-                 "type":"string"
-             },
-             "propertyLocation":{
-                 "type":"string"
-             },
-             "propertyDescription":{
-                 "type":"string"
-             }
-          }
+  "definitions": {
+    "addProperty": {
+      "type": "object",
+      "properties": {
+        "propertyName": {
+          "type": "string"
+        },
+        "propertyLocation": {
+          "type": "string"
+        },
+        "propertyDescription": {
+          "type": "string"
+        }
       }
+    }
   }
 }
