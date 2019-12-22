@@ -7,6 +7,7 @@
   "paths": {
     "/test": {
       "get": {
+        "description":"Testing applicataion",
         "operationId": "testController",
         "responses": {
           "200": {
@@ -18,6 +19,7 @@
     },
     "/addProperty": {
       "post": {
+        "description": "Adding property",
         "operationId": "addProperty",
         "parameters": [
           {
@@ -27,26 +29,74 @@
             "schema": {
               "$ref": "#/definitions/addProperty"
             }
+            
           }
         ],
         "responses": {
           "200": {
             "description": "property added successfully"
-          }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "default": {
+            "description": "Unexpected error"
+            }
         },
-
         "x-swagger-router-controller": "property"
       }
     },
-    "/getProprty": {
+    "/getProprty/{page}": {
       "get": {
         "operationId": "getProperty",
+        "description":"Get all properties",
+        "parameters":[
+          {
+            "name":"page",
+            "in":"path",
+            "required":true,
+            "type":"string"
+          }
+        ],
         "x-swagger-router-controller": "property",
         "responses": {
           "200": {
             "description": "property added successfully"
-          }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "default": {
+            "description": "Unexpected error"
+            }
         }
+      }
+    },
+    "/getPropertyById/{propertyId}": {
+      "get": {
+        "description":"Get property by property Id",
+        "operationId": "getPropertyById",
+        "summary": "Get property By Id",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "property added successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "default": {
+            "description": "Unexpected error"
+            }
+        },
+        "x-swagger-router-controller": "property"
       }
     }
   },
@@ -62,6 +112,33 @@
         },
         "propertyDescription": {
           "type": "string"
+        },
+        "bedRooms": {
+          "type": "number"
+        },
+        "bathRooms": {
+          "type": "number"
+        },
+        "area": {
+          "type": "number"
+        },
+        "carParking":{
+          "type":"boolean"
+        },
+        "yearBuild": {
+          "type":"number"
+        },
+        "diningRoom": {
+          "type":"string"
+        },
+        "kitchen": {
+          "type": "string"
+        },
+        "livingRoom": {
+          "type":"string"
+        },
+        "masterBedRoom": {
+          "type":"string"
         }
       }
     }

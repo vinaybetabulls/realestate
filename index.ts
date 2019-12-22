@@ -9,23 +9,23 @@ import bodyParser from "body-parser";
 const fs = require('fs');
 
 require('dotenv-safe').config({
-  example:  '.env.example'
+  example: '.env.example'
 });
-const swaggerInfo = fs.readFileSync(`${process.cwd()}/src/swagger.json`,'utf-8')
+const swaggerInfo = fs.readFileSync(`${process.cwd()}/src/swagger.json`, 'utf-8')
 const swaggerDoc = jsyml.safeLoad(swaggerInfo);
 const swaggerRouterOption = {
-  controllers: path.join(__dirname,'/src/controllers')
+  controllers: path.join(__dirname, '/src/controllers')
 }
 let mongo = new MongoDbConnection();
 const app: any = express();
 console.log(process.env.MONGO_DB_HOST)
 mongo.init(require('./src/configs/database').default);
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({limit:'1000mb',extended:true}))
+app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true }))
 swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
   app.use(middleware.swaggerMetadata())
   app.use(middleware.swaggerRouter(swaggerRouterOption))
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(require('./src/swagger.json'),undefined,undefined,undefined,undefined,undefined,'test'))
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(require('./src/swagger.json'), undefined, undefined, undefined, undefined, undefined, 'test'))
 })
 
 app.listen(4500)
