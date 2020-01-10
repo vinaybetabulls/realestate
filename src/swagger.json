@@ -19,14 +19,39 @@
     "/addProperty": {
       "post": {
         "operationId": "addProperty",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
+          
           {
-            "name": "body",
-            "in": "body",
+            "name": "propertyLocation",
+            "in": "formData",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/addProperty"
-            }
+            "type": "string"
+          },
+          {
+            "name": "propertyDescription",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "squarefeet",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bedRooms ",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bathRooms ",
+            "in": "formData",
+            "type": "string"
           }
         ],
         "responses": {
@@ -34,13 +59,26 @@
             "description": "property added successfully"
           }
         },
-
         "x-swagger-router-controller": "property"
       }
     },
-    "/getProprty": {
+    "/getProperty": {
       "get": {
         "operationId": "getProperty",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "x-swagger-router-controller": "property",
         "responses": {
           "200": {
@@ -48,20 +86,89 @@
           }
         }
       }
+    },
+    "/getPropertyById/{propertyId}": {
+      "get": {
+        "operationId": "getPropertyById",
+        "description": "Get property by property Id",
+        "summary": "getPropertyById",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-swagger-router-controller": "property",
+        "responses": {
+          "200": {
+            "description": "property added successfully"
+          }
+        }
+      }
+    },
+    "/deletePropertyById/{propertyId}": {
+      "delete": {
+        "operationId": "deletePropertyById",
+        "description": "delete property by property Id",
+        "summary": "deletePropertyById",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-swagger-router-controller": "property",
+        "responses": {
+          "200": {
+            "description": "property deleted  successfully"
+          }
+        }
+      }
+    },
+    "/addAgent": {
+      "post": {
+        "operationId": "addAgent",
+        "description": "add agent",
+        "summary": "adding agent by admin",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required":true,
+            "schema": {
+              "$ref": "#/definitions/addAgent"
+            }
+          }
+          
+        ],
+        "x-swagger-router-controller": "agent",
+        "responses": {
+          "200": {
+            "description": "agent  successfully"
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "addProperty": {
+    "addAgent": {
       "type": "object",
       "properties": {
-        "propertyName": {
+        "agentName": {
           "type": "string"
         },
-        "propertyLocation": {
+        "agentEmail": {
           "type": "string"
         },
-        "propertyDescription": {
+        "agentPassword":  {
           "type": "string"
+        },
+        "agentPhone": {
+          "type":"string"
         }
       }
     }
