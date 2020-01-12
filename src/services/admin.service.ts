@@ -12,11 +12,12 @@ export default class AgentService {
         agentName: _.get(req, "swagger.params.body.value.agentName"),
         agentEmail: _.get(req, "swagger.params.body.value.agentEmail"),
         agentPassword: _.get(req, "swagger.params.body.value.agentPassword"),
-        agentPhone: _.get(req, "swagger.params.body.value.agentPhone")
+        agentPhone: _.get(req, "swagger.params.body.value.agentPhone"),
+        role: _.get(req, 'swagger.params.body.value.role')
       });
       res.sed(agentResult)
     } catch (error) {
-        res.send(error)
+      res.send(error)
     }
   }
 }

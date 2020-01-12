@@ -1,14 +1,23 @@
 import MongoDbConnection from "../lib/mongo";
 import PropertyService from "../services/property.service";
-
+import JWT from '../lib/jwt';
 module.exports.testController = async (req: any, res: any) => {
   try {
     res.send({ msg: "test" });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 module.exports.addProperty = async (req: any, res: any) => {
-  const result = await PropertyService.addProperty(req, res);
+  // JWT.verify(req.swagger.params);
+  console.log(req.swagger.params.autherization.value)
+  let result: any = await JWT.verify(req.swagger.params.autherization.value);
+  console.log("result....", result)
+  if (result && result.role === 'agent') {
+    await PropertyService.addProperty(req, res, result.agentId);
+  }
+  else {
+    res.status(401).send('Authenication Failed')
+  }
 };
 module.exports.getProperty = async (req: any, res: any) => {
   const properties = await PropertyService.getProperties(req, res);

@@ -25,6 +25,12 @@
         "parameters": [
           
           {
+            "name":"autherization",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          },
+          {
             "name": "propertyLocation",
             "in": "formData",
             "required": true,
@@ -37,19 +43,25 @@
             "type": "string"
           },
           {
+            "name": "price",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "squarefeet",
             "in": "formData",
             "required": true,
             "type": "string"
           },
           {
-            "name": "bedRooms ",
+            "name": "bedRooms",
             "in": "formData",
             "required": true,
             "type": "string"
           },
           {
-            "name": "bathRooms ",
+            "name": "bathRooms",
             "in": "formData",
             "type": "string"
           }
@@ -138,17 +150,38 @@
           {
             "name": "body",
             "in": "body",
-            "required":true,
+            "required": true,
             "schema": {
               "$ref": "#/definitions/addAgent"
             }
           }
-          
         ],
         "x-swagger-router-controller": "agent",
         "responses": {
           "200": {
             "description": "agent  successfully"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "operationId": "login",
+        "description": "login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "x-swagger-router-controller": "authenticate",
+        "responses": {
+          "200": {
+            "description": "agent login successfully"
           }
         }
       }
@@ -164,11 +197,31 @@
         "agentEmail": {
           "type": "string"
         },
-        "agentPassword":  {
+        "agentPassword": {
           "type": "string"
         },
         "agentPhone": {
-          "type":"string"
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "agent"
+          ]
+        }
+      }
+    },
+    "login": {
+      "type": "object",
+      "properties": {
+        "agentEmail": {
+          "type": "string"
+        },
+        "agentPassword": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
         }
       }
     }

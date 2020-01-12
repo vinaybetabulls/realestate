@@ -1,20 +1,20 @@
 import PropertyModel from "../model/property.model";
 import { uuid } from 'uuidv4';
 import * as _ from 'lodash';
-import  multer  from  'multer' ;
+// import  multer  from  'multer' ;
 
-var storage=multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/src/images')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' +uuid())
-  }
-})
-let upload = multer({ storage: storage })
+// var storage=multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, '/src/images')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' +uuid())
+//   }
+// })
+// let upload = multer({ storage: storage })
 export default class PropertyService {
-  public static async addProperty(req: any, res: any) {
-    let property = req.swagger.params.images.value;
+  public static async addProperty(req: any, res: any, agentId: string) {
+   // let property = req.swagger.params.images.value;
   
     let id = uuid();
     //console.log(property.buffer.toString('base64'))
@@ -24,7 +24,9 @@ export default class PropertyService {
       squarefeet: _.get(req, 'swagger.params.squarefeet.value'),
       bedRooms: _.get(req, 'swagger.params.bedRooms.value'),
       bathRooms: _.get(req, 'swagger.params.bathRooms.value'),
-      propertyId: id
+      price: _.get(req, 'swagger.params.price.value'),
+      propertyId: id,
+      agentId
     });
     res.send(propertyObj)
   }

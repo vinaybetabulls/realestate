@@ -7,6 +7,7 @@ import { pathToFileURL } from "url";
 import path from 'path';
 import bodyParser from "body-parser";
 const fs = require('fs');
+var cors = require('cors')
 
 require('dotenv-safe').config({
   example:  '.env.example'
@@ -22,6 +23,18 @@ console.log(process.env.MONGO_DB_HOST)
 mongo.init(require('./src/configs/database').default);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({limit:'1000mb',extended:true}))
+var whitelist = ['http://localhost:3000']
+var corsOptions = {
+  origin: function (origin: any, callback: any) {
+    console.log(origin)
+    if (whitelist.indexOf(origin) !== -1 || origin === undefined) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+// app.use(cors(corsOptions))
 swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
   app.use(middleware.swaggerMetadata())
   app.use(middleware.swaggerRouter(swaggerRouterOption))
